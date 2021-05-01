@@ -1,0 +1,169 @@
+<!Doctype html>
+<html>
+<head>
+    
+    <style>
+            .*{
+                padding:0;
+                margin: 0;
+                box-sizing: border-box;
+            }
+            header
+            {
+                width:100%;
+                line-height:15vh;
+                background-color: dimgrey;
+                
+            }
+            h1
+            {
+                text-align: center;
+                text-transform: capitalize;
+                letter-spacing: 15px;
+                text-decoration-color:darkred;
+            } 
+        section
+        {
+            height: 85vh;
+            display:flex;
+            /*text-align: center;*/
+            justify-content: center;
+            background-color: darkred;
+        }
+        .gamearea
+        {
+            height: 400px;
+            width:50%;
+            display:flex;
+            padding: 30px 0;
+            margin:0;
+            
+            flex-direction: column;
+            background-color: orangered;
+            justify-content: center;
+            align-items: center;
+        }
+        h3
+        {
+            text-align: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        input
+        {
+            width:40%;
+            padding:0;
+            border-radius: 25px;
+            text-align: center;
+            border: none;
+            outline: none;
+            font-size: 5.7rem;
+            
+        }
+        button
+        {
+          width:40%;
+            padding:0;
+            border-radius: 25px;
+            
+        }
+        .hidden
+        {
+            display:none;
+        }
+        
+        </style>
+        </head>
+
+    <body>
+    <header>
+        <h1>guess the game </h1>
+        </header>
+        
+        <section>
+        <div class="gamearea">
+            <h3 class="msg"> </h3>
+            <input type="text" class="hidden">
+            
+             <button class="btn" >click to start</button>
+            
+            </div>
+        </section>
+    </body>
+    <script>
+    const msg=document.querySelector('.msg');
+        const guess=document.querySelector('input');
+        const btn=document.querySelector('.btn');
+        let newWords=" ";
+        let ranWords=" ";
+         let play=false;
+        let sWords=['python','java','django','swift','mlh','linux'];
+        const createNewWords =() =>
+        {
+            let ranNum=Math.floor(Math.random()*sWords.length);
+            
+            console.log(ranNum);
+            let newTempSwords=sWords[ranNum];
+            return newTempSwords;
+        }
+        
+        const scrambleWords = (arr)=>
+        {
+            
+            for(let i=arr.length-1;i>0;i--)
+                {
+                    let temp=arr[i];
+                    console.log(temp);
+                     let j=(Math.random()*(i+1));
+                    console.log(j);
+                    
+                     arr[i]=arr[j];
+                      arr[j]=temp;
+                     return arr;        
+                }
+            
+        }
+        btn.addEventListener('click',function(){
+            if(!play){
+            play=true;
+            btn.innerHTML="Guess";
+                    guess.classList.toggle('hidden');
+                    newWords=createNewWords();
+                     ranWords=scrambleWords(newWords.split("").join(""));
+                console.log(ranWords);
+                    msg.innerHTML=`Guess The Word :${ranWords}`;
+                }else
+                {
+                let tempWord=guess.value;
+                if(tempWord==newWords)
+                    {
+                        //console.log('correct');
+                        play=false;
+                        msg.innerHTML='Awesome its correct.it is ${newWords}';
+                        btn.innerHTML="Start Again";
+                        play=false;
+                        msg.innerHTML=`Awesome its correct`;
+                         btn.innerHtml="Start Again";
+                        guess.classList.toggle('hidden');
+                         guess.value="";
+                    
+                    }
+                else{
+                    console.log('incorrect!chechkout next one');
+                    msg.innerHTML=`its incorrect! write agin to go on predict :${newWords}`;
+                       
+                }
+            }
+        })
+        
+    
+    </script>
+    
+    
+    
+    
+    
+
+
+
+</html>
